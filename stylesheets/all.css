@@ -1,0 +1,138 @@
+/* line 18, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+html, body {
+  font-size: 100%; }
+
+/* line 22, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+body {
+  font-family: "Open Sans", sans-serif;
+  max-width: 100%;
+  background-color: #f2f1f4; }
+
+/* line 28, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+p, ul {
+  font-size: 1.125rem;
+  font-weight: 300; }
+
+/* line 34, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h1, h2, h3, h4 {
+  color: #8190a2;
+  font-weight: normal;
+  font-family: "Questrial", sans-serif;
+  text-transform: uppercase;
+  padding: 0;
+  line-height: 1.1; }
+
+/* line 44, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h1 {
+  margin: 0;
+  font-size: 4rem; }
+
+/* line 49, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h2 {
+  font-size: 3rem; }
+
+/* line 53, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h3 {
+  font-size: 2.25rem; }
+
+/* line 57, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h4 {
+  font-size: 1.175rem; }
+
+/* line 61, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+#main > header {
+  text-align: center; }
+  /* line 64, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  #main > header > a > h1 {
+    font-size: 5rem;
+    font-family: "Cousine", monospace, sans-serif;
+    margin: 0.5em; }
+
+/* line 71, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+.container {
+  width: 100%;
+  max-width: 100%;
+  transition: all 200ms; }
+  /* line 77, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .container .content {
+    position: relative; }
+
+/* line 84, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+.sidebar {
+  margin-left: 1rem;
+  background-color: white;
+  padding: 1rem; }
+  /* line 89, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .sidebar h1, .sidebar h2, .sidebar h3, .sidebar h4 {
+    margin: 0;
+    text-align: center; }
+
+@media only screen and (min-width: 1024px) and (max-width: 1440px) {
+  /* line 96, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .container {
+    width: 60%;
+    margin-left: 10%; }
+
+  /* line 101, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .sidebar-container {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 50%; } }
+@media only screen and (min-width: 1441px) and (max-width: 999999px) {
+  /* line 110, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .container {
+    width: 50%;
+    margin-left: 25%; }
+
+  /* line 115, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .sidebar-container {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 50%; } }
+/* line 127, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+a {
+  color: #8190a2;
+  text-decoration: none;
+  transition: color 200ms; }
+  /* line 133, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  a:hover {
+    color: #718092; }
+
+/* line 138, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+footer {
+  height: 2rem; }
+
+/* line 142, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+article {
+  margin: 1rem 0; }
+  /* line 145, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  article header {
+    background-color: white;
+    padding: 2rem 1rem;
+    margin-bottom: 2px; }
+    /* line 150, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    article header h1 {
+      text-align: center; }
+  /* line 155, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  article section {
+    background-color: white;
+    padding: 2rem; }
+  /* line 160, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  article footer {
+    background-color: white;
+    padding: 1rem 2rem;
+    text-align: right; }
+    /* line 165, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    article footer span {
+      color: #aabfd0;
+      text-transform: uppercase; }
+
+/* line 172, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+li {
+  list-style: square; }
+
+/* line 176, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+.about-text {
+  margin-bottom: 4rem; }

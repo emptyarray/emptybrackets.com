@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Blog Name</title>
+  <subtitle>Blog subtitle</subtitle>
+  <id>http://blog.url.com/</id>
+  <link href="http://blog.url.com/"/>
+  <link href="http://blog.url.com/feed.xml" rel="self"/>
+  <updated>2015-06-23T17:00:00-07:00</updated>
+  <author>
+    <name>Blog Author</name>
+  </author>
+  <entry>
+    <title>Scala Takes Over Android</title>
+    <link rel="alternate" href="http://blog.url.com/2015/06/24/scala-takes-over-android.html"/>
+    <id>http://blog.url.com/2015/06/24/scala-takes-over-android.html</id>
+    <published>2015-06-23T17:00:00-07:00</published>
+    <updated>2015-07-07T17:15:17-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Scala is becoming an increasingly popular choice on Android. Why?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;concise, flexible syntax&lt;/li&gt;
+&lt;li&gt;higher-level abstractions&lt;/li&gt;
+&lt;li&gt;functional programming suport&lt;/li&gt;
+&lt;li&gt;type safety&lt;/li&gt;
+&lt;li&gt;libraries and ecosystems&lt;/li&gt;
+&lt;li&gt;interoperability with Java&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As mobile gets bigger, there is an increasing need for abstraction for solving common problems. From the vantage-point of web development, mobile development seems very verbose and low-level. &lt;/p&gt;
+
+&lt;p&gt;Yet mobile development is moving in an increasingly &lt;a href="http://arstechnica.com/apple/2010/06/copland-2010-revisited/"&gt;abstract&lt;/a&gt; direction. Apple&amp;rsquo;s new Swift demonstrates a recognition of higher-level programming on iOS. And even before Swift, RubyMotion on iOS (and now Android) provided native mobile implementations of Ruby, spawning a large ecosystem of frameworks. &lt;/p&gt;
+
+&lt;p&gt;Scala allows high-level programming in Android. And it turns out that Swift is &lt;a href="https://leverich.github.io/swiftislikescala/"&gt;very similar&lt;/a&gt; to Scala.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s take a brief look at what Scala offers for Android.&lt;/p&gt;
+
+&lt;h2&gt;Lambda functions&lt;/h2&gt;
+
+&lt;p&gt;When I first came to Android from Ruby, I was very confused by the lack of lambda functions in Java. I soon learned that Java typically uses anonymous classes for &lt;code&gt;Runnables&lt;/code&gt;, &lt;code&gt;Listeners&lt;/code&gt;, and &lt;code&gt;Callbacks&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setOnClickListener&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;View&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;OnClickListener&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;onClick&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nl"&gt;v:&lt;/span&gt;&lt;span class="n"&gt;View&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Clicked"&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;});&lt;/span&gt;
+
+&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nf"&gt;Handler&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;post&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="nd"&gt;@Override&lt;/span&gt;
+  &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;});&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is pretty clunky. Java 8 has lambdas, but Android doesn&amp;rsquo;t support them without &lt;a href="https://github.com/evant/gradle-retrolambda"&gt;effort&lt;/a&gt;. How do anonymous functions look in Scala?&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;onClick&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Clicked"&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;runOnUiThread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Clicked"&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And a 5-liner becomes a one-liner. These examples depend on the &lt;a href="https://github.com/pocorall/scaloid"&gt;Scaloid&lt;/a&gt; framework, but it&amp;rsquo;s not hard to implement similar functionality yourself. Since functions are first-class, you can pass them around.&lt;/p&gt;
+
+&lt;p&gt;Imagine you had a custom &lt;code&gt;Seekbar&lt;/code&gt; control with a &lt;code&gt;TextView&lt;/code&gt; indicating the current progress. You could pass your control a function from the progress integer to the fully formatted text. So 2 would become &amp;ldquo;Width 2 cm.&amp;rdquo; This way you have full flexibility over the text and you can use this same control with multiple units or any arbitrary suffixes or prefixes.&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="n"&gt;customSeekbarWithText&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;textFunction&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="s"&gt;"Width: $text cm."&lt;/span&gt; &lt;span class="c1"&gt;// the s before the quotes make it string interpolation
+&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Less Boilerplate&lt;/h2&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LoginActivity&lt;/span&gt; &lt;span class="kd"&gt;extends&lt;/span&gt; &lt;span class="n"&gt;Activity&lt;/span&gt;  &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;Button&lt;/span&gt; &lt;span class="n"&gt;loginButton&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+  &lt;span class="n"&gt;EditText&lt;/span&gt; &lt;span class="n"&gt;username&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;
+
+  &lt;span class="nd"&gt;@Override&lt;/span&gt;
+  &lt;span class="kd"&gt;protected&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;onCreate&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Bundle&lt;/span&gt; &lt;span class="n"&gt;savedInstanceState&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;super&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;onCreate&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;savedInstanceState&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;setContentView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;layout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;activity_main&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;loginButton&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Button&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="n"&gt;findViewById&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;id&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;loginButton&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;username&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EditText&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="n"&gt;findViewById&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;id&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;username&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;password&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EditText&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="n"&gt;findViewById&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;id&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;password&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;loginButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setOnClickListener&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;View&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;OnClickListener&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="nd"&gt;@Override&lt;/span&gt;
+      &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;onClick&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;View&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// ... validate form&lt;/span&gt;
+        &lt;span class="n"&gt;Intent&lt;/span&gt; &lt;span class="n"&gt;intent&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Intent&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;AnotherActivity&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;class&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;startActivity&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;intent&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+      &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LoginActivity&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;SActivity&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nc"&gt;TypedFindView&lt;/span&gt;  &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;lazy&lt;/span&gt; &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;loginButton&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;findView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;TR&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;loginButton&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;lazy&lt;/span&gt; &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;email&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;findView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;TR&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;email&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;lazy&lt;/span&gt; &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;findView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;TR&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;onCreate&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;setContentView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;layout&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;loginButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;onClick&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;startActivity&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;WelcomeActivity&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I&amp;rsquo;m not going to explain how this all works, because this is the post where I&amp;rsquo;m trying to convince you to care, not the post where I get down into the nitty-gritty. For now we&amp;rsquo;ll just say that this conciseness depends on android-sdk-plugin and Scaloid doing some stuff behind the scenes to thin out all that code. When using Scala, you will also have the ability to be concise in your own code.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s break down what is going on here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We are using the Scaloid framework: &lt;code&gt;import org.scaloid.common._&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SActivity&lt;/code&gt; is Scaloid&amp;rsquo;s base activity trait. A trait is like a more powerful interface.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TypedFindVew&lt;/code&gt; gives us the &lt;code&gt;findView&lt;/code&gt; method, from android-sdk-plugin. &lt;code&gt;TR&lt;/code&gt; is the generated typed resources created by the plugin, so there is no need to constantly cast views to their correct type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lazy&lt;/code&gt; means that the variable isn&amp;rsquo;t evaluated until it&amp;rsquo;s used&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;val&lt;/code&gt; is an immutable variable&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;onCreate&lt;/code&gt; is Scaloid&amp;rsquo;s syntactic sugar&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;onClick&lt;/code&gt; is Scaloid monkey-patching a method for &lt;code&gt;Views&lt;/code&gt; with an implicit conversion. Don&amp;rsquo;t worry about understanding implicit conversions right now.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;startActivity&lt;/code&gt; is a generic method that shortens &lt;code&gt;Activity&lt;/code&gt; boilerplate&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Asynchronous logic&lt;/h2&gt;
+
+&lt;p&gt;Scala&amp;rsquo;s &lt;code&gt;Future&lt;/code&gt; is an abstraction for asynchronous logic that is powerful and concise. &lt;/p&gt;
+
+&lt;p&gt;On Android, asynchronous programming typically uses &lt;code&gt;AsyncTask&lt;/code&gt;. An asynchronous operation will be a subclass of &lt;code&gt;AsyncTask&lt;/code&gt; with methods for callbacks. &lt;code&gt;AsyncTasks&lt;/code&gt; have the same &lt;a href="http://tirania.org/blog/archive/2013/Aug-15.html"&gt;problem&lt;/a&gt; of all callback approaches: they are poorly &lt;em&gt;composable&lt;/em&gt;, which means it&amp;rsquo;s hard to combine them or order them. &lt;/p&gt;
+
+&lt;p&gt;For example, say you want multiple sequential HTTP requests. Traditionally in Android, you would use an &lt;code&gt;AsyncTask&lt;/code&gt;, and then fire off the next request in the &lt;code&gt;onPostExecute&lt;/code&gt; callback. This approach &lt;a href="https://mttkay.github.io/blog/2013/08/25/functional-reactive-programming-on-android-with-rxjava/"&gt;nests your logic&lt;/a&gt;. There are frameworks like &lt;a href="https://github.com/BoltsFramework/Bolts-Android"&gt;Bolts&lt;/a&gt; that let you write sequential tasks, but Scala comes with &lt;code&gt;Futures&lt;/code&gt; out of the box.&lt;/p&gt;
+
+&lt;p&gt;A &lt;code&gt;Future&lt;/code&gt; is a type that represents an asynchronous operation that is either &lt;em&gt;successful&lt;/em&gt; or a &lt;em&gt;failure&lt;/em&gt;. A &lt;code&gt;Promise&lt;/code&gt; is a container for a future that can be manually completed or failed. A single &lt;code&gt;Future&lt;/code&gt; might look like this:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;userFuture&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findByEmail&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"a@b.com"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;userFuture&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;onSuccess&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;Log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;LOG_TAG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;userFuture&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;onFailure&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;Log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;LOG_TAG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getMessage&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So far, all we have is a success callback. But &lt;code&gt;Futures&lt;/code&gt; really shine when you have multiple asynchronous operations.&lt;/p&gt;
+
+&lt;h3&gt;Sequential asynchronous operations&lt;/h3&gt;
+
+&lt;p&gt;If you wrap your HTTP requests in &lt;code&gt;Promises&lt;/code&gt; and have them return &lt;code&gt;Futures&lt;/code&gt;, then you can can execute them in sequence. Don&amp;rsquo;t worry about the &lt;code&gt;Promise&lt;/code&gt; part now, for now we will just look at the &lt;code&gt;Future&lt;/code&gt; side:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nc"&gt;User&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findByEmail&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"a@b.com"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// findByEmail returns a Future
+&lt;/span&gt;  &lt;span class="n"&gt;posts&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;findPosts&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="nc"&gt;Log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;LOG_TAG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="s"&gt;"User: ${user.id}, first post: ${posts(0).title}"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;for&lt;/code&gt; isn&amp;rsquo;t a &amp;ldquo;for loop,&amp;rdquo; it&amp;rsquo;s a &lt;code&gt;for comprehension&lt;/code&gt;, which is Scala&amp;rsquo;s syntactic sugar for chaining operations.&lt;/p&gt;
+
+&lt;h3&gt;Parallel asynchronous operations&lt;/h3&gt;
+
+&lt;p&gt;What if instead of running &lt;code&gt;Futures&lt;/code&gt; in sequence, you want to run them in parallel and do something when they are all done? It&amp;rsquo;s easy to run two &lt;code&gt;AsyncTasks&lt;/code&gt; in parallel, but doing something when they are both done would be annoying, because each callback would have check whether the other callback was completed using shared mutable state.&lt;/p&gt;
+
+&lt;p&gt;What we really need is a tool that will take a bunch of &lt;code&gt;Futures&lt;/code&gt; and then notifies us when they are all done.&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="c1"&gt;// Transform an array of posts into a sequence of post-deletion requests
+// post.delete() returns a Future that completes when the request returns
+&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;deletions&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Seq&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;posts&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="o"&gt;()).&lt;/span&gt;&lt;span class="n"&gt;toSeq&lt;/span&gt;
+
+&lt;span class="c1"&gt;// assuming all deletions succeed, you will get a Seq of post id's of the deleted posts
+&lt;/span&gt;&lt;span class="nc"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sequence&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;deletions&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="n"&gt;onSuccess&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Seq&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;Log&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;LOG_TAG&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;mkString&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;", "&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What the heck is a &lt;code&gt;Seq[Future[Int]]&lt;/code&gt;? It&amp;rsquo;s just what it sound like: a &lt;code&gt;Seq&lt;/code&gt; of &lt;code&gt;Futures&lt;/code&gt; of &lt;code&gt;Ints&lt;/code&gt;, or a sequence of operations that will give you an &lt;code&gt;Int&lt;/code&gt; in the future. &lt;code&gt;Future.sequence&lt;/code&gt; takes a &lt;code&gt;Seq[Future[Int]]&lt;/code&gt; and gives you a &lt;code&gt;Future[Seq[Int]]&lt;/code&gt;. It gives you a &lt;code&gt;Future&lt;/code&gt; of the &lt;code&gt;Seq&lt;/code&gt; formed by the results of all the &lt;code&gt;Futures&lt;/code&gt; that you pass it. It&amp;rsquo;s really nice how Scala gives you abstractions like this for really common asynchronous tasks.&lt;/p&gt;
+
+&lt;p&gt;I know I&amp;rsquo;m glossing over a few things here, like handling failure of &lt;code&gt;Futures&lt;/code&gt; (easy), and canceling &lt;code&gt;Futures&lt;/code&gt; (Scala&amp;rsquo;s standard &lt;code&gt;Future&lt;/code&gt; cannot be canceled, but there are other implementations like Twitter&amp;rsquo;s that can be). I&amp;rsquo;m also not going to write out how these examples would look with &lt;code&gt;AsyncTask&lt;/code&gt; because it would be long and I have much better stuff to do with my life.&lt;/p&gt;
+
+&lt;h3&gt;Threading&lt;/h3&gt;
+
+&lt;p&gt;You might be wondering, what thread are these &lt;code&gt;Futures&lt;/code&gt; running on to avoid blocking? &lt;code&gt;Futures&lt;/code&gt; in Scala run in an &lt;code&gt;implicit ExecutionContext&lt;/code&gt;. Scala has a concept of &amp;ldquo;implicit&amp;rdquo; parameters, which are defined with the &lt;code&gt;implicit&lt;/code&gt; keyword and don&amp;rsquo;t have to be manually passed in. Implicits get pretty complicated, but the main thing you need is an &lt;code&gt;implicit ExecutionContext&lt;/code&gt; in scope that &lt;code&gt;Futures&lt;/code&gt; will grab. Scala&amp;rsquo;s standard &lt;code&gt;ExecutionContext&lt;/code&gt; is usually imported like this: &lt;code&gt;import ExecutionContext.Implicits.global&lt;/code&gt;, but we will use Android&amp;rsquo;s &lt;code&gt;ThreadPoolExecutor&lt;/code&gt; &lt;a href="http://blog.scaloid.org/2013/11/using-scalaconcurrentfuture-in-android.html?showComment=1407420609604#c3177025541659882407"&gt;instead&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="c1"&gt;// this needs to be in scope somewhere or imported
+&lt;/span&gt;&lt;span class="k"&gt;implicit&lt;/span&gt; &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;execContext&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ExecutionContext&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromExecutor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;AsyncTask&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;THREAD_POOL_EXECUTOR&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="nc"&gt;Future&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="c1"&gt;// this Future grabs the implicit execContext and uses it
+&lt;/span&gt;  &lt;span class="n"&gt;doSomethingInThreadPool&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="n"&gt;onSuccess&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;runOnUiThread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt; &lt;span class="n"&gt;updateUi&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// equivalent to passing in an explicit parameter like this:
+&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;execContext&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ExecutionContext&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromExecutor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;AsyncTask&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;THREAD_POOL_EXECUTOR&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="nc"&gt;Future&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;doSomethingInThreadPool&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}(&lt;/span&gt;&lt;span class="n"&gt;execContext&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="n"&gt;onSuccess&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;runOnUiThread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt; &lt;span class="n"&gt;updateUi&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use a &lt;code&gt;Future&lt;/code&gt; to jump onto your thread pool, and then Scaloid&amp;rsquo;s &lt;code&gt;runOnUiThread&lt;/code&gt; to jump back onto the main/UI thread so you can update the UI. With &lt;a href="http://macroid.github.io/"&gt;Macroid&lt;/a&gt;, there are extensions to &lt;code&gt;Futures&lt;/code&gt; like &lt;code&gt;onSuccessUi&lt;/code&gt; which runs the success callback on the UI thread:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;implicit&lt;/span&gt; &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;execContext&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ExecutionContext&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fromExecutor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;AsyncTask&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;THREAD_POOL_EXECUTOR&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="nc"&gt;Future&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;doSomethingInThreadPool&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="n"&gt;onSuccessUi&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;updateUi&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;Resources&lt;/h2&gt;
+
+&lt;p&gt;These are only a few of the goodies that Scala gives you on Android. Here are some additional resources for Scala on Android:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://scala-on-android.taig.io/"&gt;Scala On Android: The Comprehensive Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.47deg.com/blog/scala-on-android-preparing-the-environment"&gt;Scala On Android: Preparing the Environment&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://threedimensionsblog.blogspot.com/2014/08/five-reasons-why-you-should-use-scala.html"&gt;Five Reasons Why You Should Use Scala On Android&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://threedimensionsblog.blogspot.com/2014/08/scala-on-android-motivation-building.html"&gt;Scala on Android: Motivation, Building and useful libraries&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Frameworks: &lt;a href="https://github.com/pocorall/scaloid"&gt;Scaloid&lt;/a&gt;, &lt;a href="http://macroid.github.io/"&gt;Macroid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+</feed>
