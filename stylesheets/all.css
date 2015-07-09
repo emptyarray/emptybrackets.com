@@ -136,3 +136,39 @@ li {
 /* line 176, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .about-text {
   margin-bottom: 4rem; }
+
+/* line 180, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+div {
+  box-sizing: border-box; }
+
+/* line 184, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+.android-frame {
+  margin: 2rem auto;
+  width: 10rem;
+  height: 20rem;
+  border: 2px solid #8190a2;
+  border-radius: 1rem; }
+  /* line 192, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .android-frame .android-screen {
+    width: 9rem;
+    height: 16rem;
+    border: 2px solid #8190a2;
+    margin: 2rem auto 0 auto;
+    display: table; }
+    /* line 199, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    .android-frame .android-screen div {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center; }
+      /* line 204, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+      .android-frame .android-screen div img {
+        display: inline-block;
+        margin: 0 auto;
+        width: 6rem; }
+  /* line 212, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  .android-frame .android-home-button {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #8190a2;
+    border-radius: 50%;
+    margin: 0.25rem auto; }
