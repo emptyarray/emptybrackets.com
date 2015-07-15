@@ -5,23 +5,382 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2015-06-23T17:00:00-07:00</updated>
+  <updated>2015-07-10T17:00:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
   <entry>
-    <title>Scala Takes Over Android</title>
-    <link rel="alternate" href="http://blog.url.com/2015/06/24/scala-takes-over-android.html"/>
-    <id>http://blog.url.com/2015/06/24/scala-takes-over-android.html</id>
-    <published>2015-06-23T17:00:00-07:00</published>
-    <updated>2015-07-08T23:31:29-07:00</updated>
+    <title>Advanced Android Animation in Scala</title>
+    <link rel="alternate" href="http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html"/>
+    <id>http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html</id>
+    <published>2015-07-10T17:00:00-07:00</published>
+    <updated>2015-07-14T19:04:10-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;div class="android-frame"&gt;
   &lt;div class="android-screen"&gt;
     &lt;div class="image-container"&gt;
-      &lt;img src="images/scala-logo.png" /&gt;
+      &lt;img src="/images/animation.gif" class="android-gif" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="android-home-button"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On mobile, it&amp;rsquo;s really important for animations to feel tactile and physical. When doing complex animations, it&amp;rsquo;s common to chain together animations, or even interleave animations with other operations, like changing text. Neither Android nor iOS handle multi-stage animations gracefully. We are going to build a new animation approach that is cleaner and more powerful.&lt;/p&gt;
+
+&lt;p&gt;My belief is that with a more concise animation system, you will be encouraged to use animations more, whereas with verbose and clunky animation systems, you will be tempted to skimp on animations.&lt;/p&gt;
+
+&lt;h2&gt;What we are building&lt;/h2&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="n"&gt;async&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+
+  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;fakeHttpRequest&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getBalance&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// asynchronously wait for the new balance from the server
+&lt;/span&gt;  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;newBalance&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fakeHttpRequest&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateScale&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.8f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.8f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// animate the dollar amount
+&lt;/span&gt;  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;numberAnimation&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;startBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;newBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// the new balance from the server
+&lt;/span&gt;    &lt;span class="mf"&gt;1.5&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;DecelerateInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;),&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;IntEvaluator&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+  &lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"$"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numberAnimation&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateScale&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;OvershootInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;3f&lt;/span&gt;&lt;span class="o"&gt;)))&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This probably looks like no Android code that you&amp;rsquo;ve seen before. It&amp;rsquo;s a combination of Scala&amp;rsquo;s &lt;code&gt;Futures&lt;/code&gt; and animatior helpers that we will write, which lets us chain the animations in a straightforward and linear way.&lt;/p&gt;
+
+&lt;p&gt;The refresh animation is deceptively simple: it&amp;rsquo;s actually built from 8 animations along with an HTTP request and other UI changes. This is incredibly compact.&lt;/p&gt;
+
+&lt;h2&gt;Why do I do this?&lt;/h2&gt;
+
+&lt;p&gt;Android has a zillion animation APIs but they all feel like they are lacking something.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;View Animation and &lt;code&gt;ViewPropertyAnimator&lt;/code&gt;: Can only animate certain properties. Cannot animate text color, drawable properties like background color, or &lt;code&gt;LayoutParams&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Property Animation: &lt;code&gt;ValueAnimator&lt;/code&gt; and &lt;code&gt;ObjectAnimator&lt;/code&gt; are powerful, can animate arbitary objects unlike iOS. Low-level, verbose, and annoying to compose. Specifying both the start value and end value gets tiring really quickly.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;AnimationSet&lt;/code&gt;: Can compose multiple animations into a chain, but cannot compose animations with non-animations, like changing views or other asynchronous operations.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;XML-based animations: Inflexible due to hard-coded magic numbers.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The biggest problem with all these animation approaches is their &lt;strong&gt;composability&lt;/strong&gt;. It&amp;rsquo;s awkward to chain animations with other animations or with things that are not animations.&lt;/p&gt;
+
+&lt;h3&gt;Composability, composability, composability&lt;/h3&gt;
+
+&lt;p&gt;When you are only chaining two animations, traditional Android animation works pretty well. For example, here is &lt;code&gt;ViewPropertyAnimator&lt;/code&gt; in Java:&lt;/p&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;withEndAction&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="nd"&gt;@Override&lt;/span&gt;
+  &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"REFRESHED TEXT"&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Looks fine. So far. But if we try to add on a couple more animations, you encounter callback hell:&lt;/p&gt;
+&lt;pre class="highlight java"&gt;&lt;code&gt;&lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;withEndAction&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="nd"&gt;@Override&lt;/span&gt;
+  &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"REFRESHED TEXT"&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+
+    &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;withEndAction&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="nd"&gt;@Override&lt;/span&gt;
+      &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;scaleX&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.03f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;scaleY&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.03f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;300&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;withEndAction&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Runnable&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+          &lt;span class="nd"&gt;@Override&lt;/span&gt;
+          &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;textView&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;animate&lt;/span&gt;&lt;span class="o"&gt;().&lt;/span&gt;&lt;span class="na"&gt;scaleX&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;scaleY&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="na"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt;
+          &lt;span class="o"&gt;}&lt;/span&gt;
+        &lt;span class="o"&gt;});&lt;/span&gt;
+      &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;});&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you keep going like this, you are going to hit editor-window overflow. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ValueAnimator&lt;/code&gt;/&lt;code&gt;ObjectAnimator&lt;/code&gt; have similar issues with nesting.&lt;/p&gt;
+
+&lt;p&gt;To make things even more complicated, what if you wanted to compose your refresh animation with an HTTP request? If we wanted to do something like (1) fade out, (2) run HTTP request to retrieve the new resource, and (3) fade in with new text, then it would be a total mess of callbacks.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make our own animation helper that is composable. The goal:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Chain animations in sequence&lt;/li&gt;
+&lt;li&gt;Run animations in parallel&lt;/li&gt;
+&lt;li&gt;Avoid needing to specify start values&lt;/li&gt;
+&lt;li&gt;Animate anything&lt;/li&gt;
+&lt;li&gt;Concise syntax&lt;/li&gt;
+&lt;li&gt;Animations can be composed with non-animations and with asynchronous operations like HTTP requests&lt;/li&gt;
+&lt;li&gt;No nesting in multi-stage animations&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Animation with Futures&lt;/h2&gt;
+
+&lt;p&gt;My previous article about &lt;a href="http://rbs-macbook-pro.local:4567/2015/06/24/scala-takes-over-android.html"&gt;Scala on Android&lt;/a&gt; introduced Scala&amp;rsquo;s &lt;code&gt;Future&lt;/code&gt; abstraction for dealing with asynchronous operations. When doing animations, I reached for &lt;code&gt;Futures&lt;/code&gt; because they are asynchronous. If your animations are in &lt;code&gt;Futures&lt;/code&gt;, and your HTTP requests are also in &lt;code&gt;Futures&lt;/code&gt;, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the &lt;a href="http://macroid.github.io/"&gt;Macroid&lt;/a&gt; Scala Android framework.&lt;/p&gt;
+
+&lt;p&gt;We are going to make some animation helpers by &lt;strong&gt;wrapping &lt;code&gt;ValueAnimators&lt;/code&gt; inside &lt;code&gt;Futures&lt;/code&gt;&lt;/strong&gt;. To make things even more succint, we are going to patch our animation methods onto &lt;code&gt;Views&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3&gt;Example: Fade out a button, then disable it&lt;/h3&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="n"&gt;onSuccess&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;button&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2&gt;The Implementation&lt;/h2&gt;
+
+&lt;p&gt;We will gives &lt;code&gt;Views&lt;/code&gt; our animation helper methods by using Scala&amp;rsquo;s implicit wrapper class construct:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;implicit&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AnimatedView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;View&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;FiniteDuration&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="c1"&gt;//...
+&lt;/span&gt;    &lt;span class="o"&gt;}&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// in Activity, import the wrapper conversion into scope
+&lt;/span&gt;&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;com.emptyarray.scala.android.util.ViewHelper._&lt;/span&gt;
+
+&lt;span class="c1"&gt;// all `Views` are now implicitly wrapped in AnimatedViews,
+// and now have `animateAlpha`
+&lt;/span&gt;&lt;span class="n"&gt;view&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;ValueAnimator, first try&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;ValueAnimators&lt;/code&gt; are very powerful and general, but they have a lot of boilerplate. Let&amp;rsquo;s make a helper that gives us a &lt;code&gt;ValueAnimator&lt;/code&gt; in one shot, runs a closure from an &lt;code&gt;AnimatorUpdateListener&lt;/code&gt; and returns a &lt;code&gt;Future&lt;/code&gt; that completes when the animation is done.&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;UiThreadHelper&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
+                    &lt;span class="n"&gt;stop&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; 
+                    &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;FiniteDuration&lt;/span&gt;&lt;span class="o"&gt;)(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;animator&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ValueAnimator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ofFloat&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stop&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toMillis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addUpdateListener&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;AnimatorUpdateListener&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;onAnimationUpdate&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ValueAnimator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getAnimatedValue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;asInstanceOf&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+      &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;})&lt;/span&gt;
+
+    &lt;span class="n"&gt;runAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// we will write this soon
+&lt;/span&gt;  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Things to notice:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;FiniteDuration&lt;/code&gt; is Scala&amp;rsquo;s time duration class which let&amp;rsquo;s you write stuff like &lt;code&gt;1.5 seconds&lt;/code&gt; instead of only using milliseconds as a &lt;code&gt;Long&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;You might notice that there are two parameter sets in parentheses! That&amp;rsquo;s because it&amp;rsquo;s a curried function. This is nicer for syntax.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;f: Float =&amp;gt; Unit&lt;/code&gt; means a function from a &lt;code&gt;Float&lt;/code&gt; to &lt;code&gt;Unit&lt;/code&gt;. &lt;code&gt;Unit&lt;/code&gt; is Scala&amp;rsquo;s &lt;code&gt;void&lt;/code&gt;. This function will run for every update of the animation, and we will access the &lt;code&gt;Float&lt;/code&gt; as the animated value.&lt;/li&gt;
+&lt;li&gt;Returns a &lt;code&gt;Future&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;But this version is too simplistic. What if we want to animate an &lt;code&gt;Int&lt;/code&gt; instead of a &lt;code&gt;Float&lt;/code&gt;? What if we want to use a different &lt;code&gt;Interpolator&lt;/code&gt; or &lt;code&gt;Evaluator&lt;/code&gt;?&lt;/p&gt;
+
+&lt;h3&gt;ValueAnimator, second try&lt;/h3&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;UiThreadHelper&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;A&lt;/span&gt;, &lt;span class="kt"&gt;T&lt;/span&gt;&lt;span class="o"&gt;](&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stop&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;FiniteDuration&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                       &lt;span class="n"&gt;interpolator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;TimeInterpolator&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+                       &lt;span class="n"&gt;evaluator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;TypeEvaluator&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;T&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+                      &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;A&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// pattern match handles the casting                  
+&lt;/span&gt;    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;animator&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;stop&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;match&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;ValueAnimator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ofFloat&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+      &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;ValueAnimator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ofInt&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setDuration&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toMillis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;interpolator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEvaluator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;evaluator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addUpdateListener&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;AnimatorUpdateListener&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;onAnimationUpdate&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ValueAnimator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getAnimatedValue&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;asInstanceOf&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;A&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+      &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;})&lt;/span&gt;
+
+    &lt;span class="n"&gt;runAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now &lt;code&gt;valueAnimator&lt;/code&gt; is more generic thanks to the type parameters: one for the type of the &lt;code&gt;ValueAnimator&lt;/code&gt;, and the other for the type of the &lt;code&gt;Evaluator&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Next we will actually run the &lt;code&gt;ValueAnimator&lt;/code&gt; inside a &lt;code&gt;Future&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3&gt;ValueAnimator in a Future&lt;/h3&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;runAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Animator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;Promise&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]()&lt;/span&gt;
+
+    &lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;addListener&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;AnimatorListenerAdapter&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;onAnimationEnd&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Animator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="o"&gt;(())&lt;/span&gt;
+      &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;onAnimationCancel&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animtor&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Animator&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="o"&gt;(())&lt;/span&gt;
+    &lt;span class="o"&gt;})&lt;/span&gt;
+
+    &lt;span class="n"&gt;onUiThread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;animator&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt;
+
+    &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;future&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We start a &lt;code&gt;Promise&lt;/code&gt;, and run the animator (on the UI thread), completing the promise when the animation is ended or canceled. We return the &lt;code&gt;Promise&amp;#39;s&lt;/code&gt; &lt;code&gt;Future&lt;/code&gt;, which can be observed by consumers. There is no way to cancel an animation right now, but this approach could be extended to add one.&lt;/p&gt;
+
+&lt;p&gt;With our helpers, we can now &lt;em&gt;animate any function we want&lt;/em&gt;. Well, any function that takes a &lt;code&gt;Float&lt;/code&gt; and returns nothing.&lt;/p&gt;
+
+&lt;h3&gt;animateAlpha, the whole story&lt;/h3&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;implicit&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AnimatedView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;View&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;FiniteDuration&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+
+    &lt;span class="n"&gt;getFromUiThread&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getAlpha&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="n"&gt;flatMap&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;startAlpha&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt;
+
+        &lt;span class="nc"&gt;ViewHelper&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;startAlpha&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+          &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;AccelerateDecelerateInterpolator&lt;/span&gt;&lt;span class="o"&gt;(),&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;FloatEvaluator&lt;/span&gt;&lt;span class="o"&gt;())(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setAlpha&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="o"&gt;}&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OK, I admit that this is starting to get a little complicated. But I&amp;rsquo;ll explain what&amp;rsquo;s going on here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The key part is that we are now using &lt;code&gt;valueAnimator&lt;/code&gt; to animate a function&lt;/li&gt;
+&lt;li&gt;The function we are animating is &lt;code&gt;setAlpha&lt;/code&gt; on the &lt;code&gt;View&lt;/code&gt; that wrapped in our implicit class. &lt;code&gt;v.setAlpha&lt;/code&gt; is a short-hand for a function invocation like &lt;code&gt;{ x =&amp;gt; v.setAlpha(x) }&lt;/code&gt;, where &lt;code&gt;x&lt;/code&gt; is passed from our &lt;code&gt;ValueAnimator&amp;#39;s&lt;/code&gt; &lt;code&gt;getAnimatedValue&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;I don&amp;rsquo;t want to want to have to specify the start alpha: it should be the &lt;code&gt;View&amp;#39;s&lt;/code&gt; current alpha. The problem is that I&amp;rsquo;m being a bit mean to myself and I&amp;rsquo;m not willing to assume that I&amp;rsquo;m on the UI thread.&lt;/li&gt;
+&lt;li&gt;To get the &lt;code&gt;View&amp;#39;s&lt;/code&gt; initial alpha, I run &lt;code&gt;getAlpha&lt;/code&gt; in a &lt;code&gt;Future&lt;/code&gt; that runs on the UI thread. That&amp;rsquo;s what &lt;code&gt;getFromUiThread&lt;/code&gt; does, and you can see the implementation &lt;a href="https://github.com/emptyarray/scala-android-animation/blob/master/src/main/scala/com/emptyarray/scala/android/util/UiThreadExecutionContext.scala"&gt;on Github&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;What is &lt;code&gt;flatMap&lt;/code&gt;? That&amp;rsquo;s the question that all beginning Scala developers ask. &lt;code&gt;flatMap&lt;/code&gt; is an idea from functional programming. In the context of a &lt;code&gt;Future&lt;/code&gt;, what you need to know is that &lt;em&gt;&lt;code&gt;flatMap&lt;/code&gt; lets you chain &lt;code&gt;Futures&lt;/code&gt; together&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The payoff for this complexity is that we can have animations without a start value, and we can start them from any thread. This will make our code much cleaner in other places.&lt;/p&gt;
+
+&lt;h3&gt;Animating Numbers&lt;/h3&gt;
+
+&lt;p&gt;Since we can animate functions, we can animate the numbers with the &lt;code&gt;valueAnimator&lt;/code&gt; helper also:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="nc"&gt;ViewHelper&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+  &lt;span class="n"&gt;startBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;newBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+  &lt;span class="mf"&gt;1.5&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+  &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;DecelerateInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;),&lt;/span&gt;
+  &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;IntEvaluator&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"$"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;v =&amp;gt; accountBalance.setText(&amp;quot;$&amp;quot; + v.toString)&lt;/code&gt; is the animation function that we are passing in. This returns a &lt;code&gt;Future&lt;/code&gt; that we can chain with other animations.&lt;/p&gt;
+
+&lt;h3&gt;So how do you chain animations?&lt;/h3&gt;
+
+&lt;p&gt;Normally in Scala, you would chain &lt;code&gt;Futures&lt;/code&gt; like using &lt;code&gt;for&lt;/code&gt; comprehensions:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="c1"&gt;// fade a view in, then out, then make it gone
+&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="k"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt; &lt;span class="k"&gt;yield&lt;/span&gt; &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setVisibility&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;View&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;GONE&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This syntax isn&amp;rsquo;t nested, but it is a little awkard. &lt;code&gt;for&lt;/code&gt; comprehensions require extracting the value of the &lt;code&gt;Future&lt;/code&gt; into the variables on the left, but we don&amp;rsquo;t need that because our animation helpers return &lt;code&gt;Unit&lt;/code&gt; (&lt;code&gt;void&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Luckily, &lt;a href="https://github.com/scala/async"&gt;scala-async&lt;/a&gt; supplies macros that let us wait for &lt;code&gt;Futures&lt;/code&gt; to complete without blocking:&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;scala.async.Async.&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="n"&gt;async&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;async&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setVisibility&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;View&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;GONE&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Much more intuitive. And note the ease of composing &lt;code&gt;Futures&lt;/code&gt; with other operations, like changing the UI.&lt;/p&gt;
+
+&lt;h2&gt;The full animation&lt;/h2&gt;
+
+&lt;div class="android-frame"&gt;
+  &lt;div class="android-screen"&gt;
+    &lt;div class="image-container"&gt;
+      &lt;img src="/images/animation.gif" class="android-gif" /&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="android-home-button"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now that chaining animations is easy, let&amp;rsquo;s go to town and write a really complex refresh animation, interleaved with an HTTP request and with enabling/disabling the refresh button. Imagine how much more code this would take in a normal Java Android approach!&lt;/p&gt;
+&lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="n"&gt;async&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.5f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+
+  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;fakeHttpRequest&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getBalance&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// asynchronously wait for the new balance from the server
+&lt;/span&gt;  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;newBalance&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fakeHttpRequest&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateScale&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0.8f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;0.8f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;300&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;numberAnimation&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;valueAnimator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;startBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+    &lt;span class="n"&gt;newBalance&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+    &lt;span class="mf"&gt;1.5&lt;/span&gt; &lt;span class="n"&gt;seconds&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;DecelerateInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;),&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;IntEvaluator&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+  &lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setText&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"$"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;toString&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numberAnimation&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;accountBalance&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateScale&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;OvershootInterpolator&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;3f&lt;/span&gt;&lt;span class="o"&gt;)))&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;progress&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;0f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="n"&gt;await&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1f&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;500&lt;/span&gt; &lt;span class="n"&gt;millis&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+  &lt;span class="n"&gt;onUiThread&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &lt;span class="n"&gt;refreshButton&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setEnabled&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We need &lt;code&gt;onUiThread&lt;/code&gt; because the &lt;code&gt;async&lt;/code&gt; block is running in the thread pool, not on the main thread. See my &lt;a href="//rbs-macbook-pro.local:4567/2015/06/24/scala-takes-over-android.html"&gt;previous article&lt;/a&gt; for more explanation about threading. Find this whole project on Github with the full implementation:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class="github"&gt;
+  &lt;span class="icon-github large-github-icon"&gt;&lt;/span&gt;&lt;a href="https://github.com/emptyarray/scala-android-animation"&gt;Project On Github&lt;/a&gt;
+&lt;/span&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Scala Takes Over Android</title>
+    <link rel="alternate" href="http://blog.url.com/2015/06/24/scala-takes-over-android.html"/>
+    <id>http://blog.url.com/2015/06/24/scala-takes-over-android.html</id>
+    <published>2015-06-23T17:00:00-07:00</published>
+    <updated>2015-07-14T18:58:12-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;div class="android-frame"&gt;
+  &lt;div class="android-screen"&gt;
+    &lt;div class="image-container centered"&gt;
+      &lt;img src="/images/scala-logo.png" /&gt;
     &lt;/div&gt;
   &lt;/div&gt;
   &lt;div class="android-home-button"&gt;&lt;/div&gt;
