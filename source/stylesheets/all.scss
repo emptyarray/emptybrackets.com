@@ -11,6 +11,8 @@ $off-white: #f2f1f4;
 $header-font: "Questrial", sans-serif;
 $body-font: "Open Sans", sans-serif;
 $base-margin: 1rem;
+$default-header-font-size: 1;
+$smaller-header-font-size: 0.8;
 
 $screen: "only screen";
 $medium: "#{$screen} and (min-width: 1024px) and (max-width: 1440px)";
@@ -78,22 +80,7 @@ h1, h2, h3, h4 {
   line-height: 1.1;
 }
 
-h1 {
-  margin: 0;
-  font-size: 4rem;
-}
 
-h2 {
-  font-size: 3rem;
-}
-
-h3 {
-  font-size: 2.25rem;
-}
-
-h4 {
-  font-size: 1.175rem;
-}
 
 #main > header {
   text-align: center;
@@ -129,6 +116,27 @@ h4 {
   }
 }
 
+h1 {
+  margin: 0;
+  font-size: $smaller-header-font-size * 4rem;
+}
+
+h2 {
+  font-size: $smaller-header-font-size * 3rem;
+}
+
+h3 {
+  font-size: $smaller-header-font-size * 2.25rem;
+}
+
+h4 {
+  font-size: $smaller-header-font-size * 1.175rem;
+}
+
+article > section {
+    padding: 1rem;
+  }
+
 @media #{$medium} {
   .container {
     width: 60%;
@@ -141,9 +149,31 @@ h4 {
     top: 0;
     width: 50%;
   }
+
+  article > section {
+    padding: 2rem;
+  }
 }
 
 @media #{$large-up} {
+
+  h1 {
+    margin: 0;
+    font-size: $default-header-font-size * 4rem;
+  }
+
+  h2 {
+    font-size: $default-header-font-size * 3rem;
+  }
+
+  h3 {
+    font-size: $default-header-font-size * 2.25rem;
+  }
+
+  h4 {
+    font-size: $default-header-font-size * 1.175rem;
+  }
+
   .container {
     width: 50%;
     margin-left: 25%;
@@ -156,6 +186,11 @@ h4 {
     width: 50%;
 
   }
+
+  article > section {
+    padding: 2rem;
+  }
+
 }
 
 
@@ -191,7 +226,6 @@ article {
 
   section {
     background-color: white;
-    padding: 2rem;
   }
 
   footer {
