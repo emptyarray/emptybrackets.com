@@ -4,7 +4,7 @@
   src: url("../icomoon/fonts/icomoon.eot?#iefixj1hzg0") format("embedded-opentype"), url("../icomoon/fonts/icomoon.ttf?j1hzg0") format("truetype"), url("../icomoon/fonts/icomoon.woff?j1hzg0") format("woff"), url("../icomoon/fonts/icomoon.svg?j1hzg0#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
-/* line 30, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 32, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
@@ -17,34 +17,34 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/* line 44, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 46, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .icon-facebook2:before {
   content: "\e600"; }
 
-/* line 47, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 49, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .icon-github:before {
   content: "\e601"; }
 
-/* line 50, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 52, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .icon-linkedin:before {
   content: "\e602"; }
 
-/* line 55, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 57, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 html, body {
   font-size: 100%; }
 
-/* line 59, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 61, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 body {
   font-family: "Open Sans", sans-serif;
   max-width: 100%;
   background-color: #f2f1f4; }
 
-/* line 65, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 67, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 p, ul {
   font-size: 1.125rem;
   font-weight: 300; }
 
-/* line 71, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 73, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 h1, h2, h3, h4 {
   color: #8190a2;
   font-weight: normal;
@@ -53,156 +53,173 @@ h1, h2, h3, h4 {
   padding: 0;
   line-height: 1.1; }
 
-/* line 81, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
-h1 {
-  margin: 0;
-  font-size: 4rem; }
-
-/* line 86, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
-h2 {
-  font-size: 3rem; }
-
-/* line 90, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
-h3 {
-  font-size: 2.25rem; }
-
-/* line 94, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
-h4 {
-  font-size: 1.175rem; }
-
-/* line 98, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 85, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 #main > header {
   text-align: center; }
-  /* line 101, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 88, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   #main > header > a > h1 {
     font-size: 5rem;
     font-family: "Cousine", monospace, sans-serif;
     margin: 0.5em; }
 
-/* line 108, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 95, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .container {
   width: 100%;
   max-width: 100%;
   transition: all 200ms; }
-  /* line 114, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 101, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .container .content {
     position: relative; }
 
-/* line 121, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 108, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .sidebar {
   margin-left: 1rem;
   background-color: white;
   padding: 1rem; }
-  /* line 126, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 113, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .sidebar h1, .sidebar h2, .sidebar h3, .sidebar h4 {
     margin: 0;
     text-align: center; }
 
+/* line 119, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h1 {
+  margin: 0;
+  font-size: 3.2rem; }
+
+/* line 124, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h2 {
+  font-size: 2.4rem; }
+
+/* line 128, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h3 {
+  font-size: 1.8rem; }
+
+/* line 132, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+h4 {
+  font-size: 0.94rem; }
+
 @media only screen and (min-width: 1024px) and (max-width: 1440px) {
-  /* line 133, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 137, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .container {
     width: 60%;
     margin-left: 10%; }
 
-  /* line 138, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 142, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .sidebar-container {
     position: absolute;
     left: 100%;
     top: 0;
     width: 50%; } }
 @media only screen and (min-width: 1441px) and (max-width: 999999px) {
-  /* line 147, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 153, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  h1 {
+    margin: 0;
+    font-size: 4rem; }
+
+  /* line 158, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  h2 {
+    font-size: 3rem; }
+
+  /* line 162, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  h3 {
+    font-size: 2.25rem; }
+
+  /* line 166, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  h4 {
+    font-size: 1.175rem; }
+
+  /* line 170, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .container {
     width: 50%;
     margin-left: 25%; }
 
-  /* line 152, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 175, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .sidebar-container {
     position: absolute;
     left: 100%;
     top: 0;
     width: 50%; } }
-/* line 164, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 187, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 a {
   color: #8190a2;
   text-decoration: none;
   transition: color 200ms; }
-  /* line 170, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 193, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   a:hover {
     color: #707990; }
 
-/* line 175, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 198, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 footer {
   height: 2rem; }
 
-/* line 179, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 202, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 article {
   margin: 1rem 0; }
-  /* line 182, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 205, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   article header {
     background-color: white;
     padding: 2rem 1rem;
     margin-bottom: 2px; }
-    /* line 187, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 210, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     article header h1 {
       text-align: center; }
-  /* line 192, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 215, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   article section {
     background-color: white;
     padding: 2rem; }
-  /* line 197, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 220, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   article footer {
     background-color: white;
     padding: 1rem 2rem;
     text-align: right; }
-    /* line 202, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 225, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     article footer span {
       color: #aabfd0;
       text-transform: uppercase; }
 
-/* line 209, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 232, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 li {
   list-style: square;
   margin-bottom: 0.25em; }
 
-/* line 214, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 237, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .about-text {
   margin-bottom: 2rem; }
 
-/* line 218, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 241, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 div {
   box-sizing: border-box; }
 
-/* line 226, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 249, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .android-frame {
   margin: 2rem auto;
   width: 290px;
   height: 560px;
   border: 2px solid #8190a2;
   border-radius: 40px; }
-  /* line 234, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 257, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .android-frame .android-screen {
     width: 274px;
     height: 484px;
     border: 2px solid #8190a2;
     margin: 2rem auto 0 auto;
     display: table; }
-    /* line 241, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 264, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     .android-frame .android-screen .centered {
       display: table-cell;
       vertical-align: middle;
       text-align: center; }
-    /* line 247, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 270, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     .android-frame .android-screen img {
       display: inline-block;
       margin: 0 auto;
       width: 8rem; }
-      /* line 252, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+      /* line 275, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
       .android-frame .android-screen img.android-gif {
         width: 270px;
         max-width: 100%;
         display: inline-block; }
-  /* line 260, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 283, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .android-frame .android-home-button {
     width: 20px;
     height: 20px;
@@ -210,44 +227,44 @@ div {
     border-radius: 50%;
     margin: 10px auto; }
 
-/* line 270, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 293, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .github {
   font-size: 125%; }
-  /* line 273, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 296, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .github .icon-github {
     margin-right: 0.5em;
     color: #405264; }
 
-/* line 279, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 302, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .find-me-links {
   font-size: 200%;
   padding: 1rem;
   margin-bottom: 2rem;
   display: table;
   width: 100%; }
-  /* line 286, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 309, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .find-me-links span {
     display: table-cell;
     vertical-align: middle; }
-    /* line 291, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 314, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     .find-me-links span:nth-child(2) {
       font-family: "Questrial", "Helvetica", sans-serif; }
-  /* line 296, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 319, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .find-me-links .find-me-row {
     display: block;
     width: 100%;
     padding: 0.5rem;
     transition: background-color 300ms;
     cursor: pointer; }
-    /* line 303, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+    /* line 326, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
     .find-me-links .find-me-row:hover {
       background-color: #f2f1f4; }
-  /* line 308, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+  /* line 331, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
   .find-me-links [class^="icon-"] {
     color: #405264;
     padding-right: 0.5em; }
 
-/* line 316, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
+/* line 339, /usr/local/src/emptybrackets.com/source/stylesheets/all.scss */
 .article-date {
   color: #405264;
   text-transform: uppercase; }
