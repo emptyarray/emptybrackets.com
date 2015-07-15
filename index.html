@@ -152,7 +152,7 @@
 
 <h2>The Implementation</h2>
 
-<p>We will gives <code>Views</code> our animation helper methods by using Scala&rsquo;s implicit wrapper class construct:</p>
+<p>We will give <code>Views</code> our animation helper methods by using Scala&rsquo;s implicit wrapper class construct:</p>
 <pre class="highlight scala"><code><span class="k">object</span> <span class="nc">ViewHelper</span> <span class="o">{</span>
   <span class="k">implicit</span> <span class="k">class</span> <span class="nc">AnimatedView</span><span class="o">(</span><span class="n">v</span><span class="k">:</span> <span class="kt">View</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">def</span> <span class="n">animateAlpha</span><span class="o">(</span><span class="n">alpha</span><span class="k">:</span> <span class="kt">Float</span><span class="o">,</span> <span class="n">duration</span><span class="k">:</span> <span class="kt">FiniteDuration</span><span class="o">)</span><span class="k">:</span> <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>

@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html"/>
     <id>http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html</id>
     <published>2015-07-10T17:00:00-07:00</published>
-    <updated>2015-07-14T19:04:10-07:00</updated>
+    <updated>2015-07-14T22:08:47-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -145,7 +145,7 @@
 
 &lt;h2&gt;The Implementation&lt;/h2&gt;
 
-&lt;p&gt;We will gives &lt;code&gt;Views&lt;/code&gt; our animation helper methods by using Scala&amp;rsquo;s implicit wrapper class construct:&lt;/p&gt;
+&lt;p&gt;We will give &lt;code&gt;Views&lt;/code&gt; our animation helper methods by using Scala&amp;rsquo;s implicit wrapper class construct:&lt;/p&gt;
 &lt;pre class="highlight scala"&gt;&lt;code&gt;&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;ViewHelper&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
   &lt;span class="k"&gt;implicit&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AnimatedView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;View&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;animateAlpha&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;alpha&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Float&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;duration&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;FiniteDuration&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Future&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Unit&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
