@@ -4,6 +4,15 @@ date: 2015-06-24
 tags: scala, android
 ---
 
+<div class="android-frame">
+  <div class="android-screen">
+    <div class="image-container centered">
+      <img src="/images/scala-logo.png" />
+    </div>
+  </div>
+  <div class="android-home-button"></div>
+</div>
+
 Scala is becoming an increasingly popular choice on Android. Why?
 
 - concise, flexible syntax
@@ -208,7 +217,7 @@ Future {
 } onSuccessUi {
   case result => updateUi()
 }
-
+```
 
 ## Resources
 

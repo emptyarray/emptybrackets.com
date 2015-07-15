@@ -1,0 +1,3 @@
+# EmptyBrackets.com
+
+A [blog](http://emptybrackets.com) generated with [Middleman](http://middlemanapp.com)

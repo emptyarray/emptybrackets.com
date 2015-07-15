@@ -1,9 +1,10 @@
 
 $body-text-color: #221143;
 $primary-color: #8190a2;
-$darker-primary-color: #718092;
+$darker-primary-color: #707990;
 $heading-color: $primary-color;
 $grey: #88aacc;
+$dark-grey: #405264;
 $light-grey: #aabfd0;
 $off-white: #f2f1f4;
 
@@ -14,6 +15,42 @@ $base-margin: 1rem;
 $screen: "only screen";
 $medium: "#{$screen} and (min-width: 1024px) and (max-width: 1440px)";
 $large-up: "#{$screen} and (min-width: 1441px) and (max-width: 999999px)";
+
+@font-face {
+  font-family: 'icomoon';
+  src:url('../icomoon/fonts/icomoon.eot?j1hzg0');
+  src:url('../icomoon/fonts/icomoon.eot?#iefixj1hzg0') format('embedded-opentype'),
+    url('../icomoon/fonts/icomoon.ttf?j1hzg0') format('truetype'),
+    url('../icomoon/fonts/icomoon.woff?j1hzg0') format('woff'),
+    url('../icomoon/fonts/icomoon.svg?j1hzg0#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-facebook2:before {
+  content: "\e600";
+}
+.icon-github:before {
+  content: "\e601";
+}
+.icon-linkedin:before {
+  content: "\e602";
+}
+
 
 html, body {
   font-size: 100%;
@@ -171,8 +208,112 @@ article {
 
 li {
   list-style:square;
+  margin-bottom: 0.25em;
 }
 
 .about-text {
-  margin-bottom: $base-margin * 4;
+  margin-bottom: $base-margin * 2;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+$android-screen-width: 270px;
+$android-screen-height: 480px;
+$android-screen-margin: 20px;
+
+.android-frame {
+  margin: $base-margin * 2 auto;
+  width: $android-screen-width + $android-screen-margin;
+  height: $android-screen-height + $android-screen-margin * 4;
+  border: 2px solid $primary-color;
+  border-radius: 40px;
+
+
+  .android-screen {
+    width: 274px;
+    height: 484px;
+    border: 2px solid $primary-color;
+    margin: 2rem auto 0 auto;
+
+    display: table;
+    .centered {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    img {
+        display: inline-block;
+        margin: 0 auto;
+        width: 8rem;
+
+        &.android-gif {
+          width: 270px;
+          max-width: 100%;
+          display: inline-block;
+        }
+      }
+  }
+
+  .android-home-button {
+    width: $android-screen-margin;
+    height: $android-screen-margin;
+    border: 2px solid $primary-color;
+    border-radius: 50%;
+    margin: $android-screen-margin / 2 auto;
+  }
+
+}
+
+.github {
+  font-size: 125%;
+
+  .icon-github {
+    margin-right: 0.5em;
+    color: $dark-grey;
+  }
+}
+
+.find-me-links {
+  font-size: 200%;
+  padding: $base-margin;
+  margin-bottom: $base-margin * 2;
+  display: table;
+  width: 100%;
+
+  span {
+    display: table-cell;
+    vertical-align: middle;
+
+
+    &:nth-child(2) {
+          font-family: "Questrial", "Helvetica", sans-serif;
+    }
+  }
+
+  .find-me-row {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    transition: background-color 300ms;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $off-white;
+    }
+  }
+
+  [class^="icon-"] {
+      color: $dark-grey;
+      padding-right: 0.5em;
+
+  }
+
+}
+
+.article-date {
+  color: $dark-grey;
+  text-transform: uppercase;
 }

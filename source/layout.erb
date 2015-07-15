@@ -25,10 +25,23 @@
               <h2>About</h2>
 
               <p class="about-text">Full-stack web + mobile developer all rolled into one. Mountain View.</p>
+
+              <div class="find-me-links">
+
+                <a class="find-me-row" href="https://www.linkedin.com/pub/richard-barton/7/713/899">
+                  <span class="icon-linkedin"></span>
+                  <span>LinkedIn</span>
+                </a>
+                <a class="find-me-row" href="https://github.com/emptyarray">
+                  <span class="icon-github"></span>
+                  <span>Github</span>
+                </a>
+              </div>
+
               <h3>Recent Articles</h3>
               <ol>
                 <% blog.articles[0...10].each do |article| %>
-                  <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+                  <li><%= link_to article.title, article %> <span class="article-date"><%= article.date.strftime('%b %e %Y') %></span></li>
                 <% end %>
               </ol>
             </div>
