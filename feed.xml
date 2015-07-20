@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html"/>
     <id>http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html</id>
     <published>2015-07-10T17:00:00-07:00</published>
-    <updated>2015-07-19T22:09:42-07:00</updated>
+    <updated>2015-07-19T22:11:11-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -135,7 +135,7 @@
 
 &lt;h2&gt;Animation with Futures&lt;/h2&gt;
 
-&lt;p&gt;My previous article about &lt;a href="/2015/06/24/scala-takes-over-android.html"&gt;Scala on Android&lt;/a&gt; introduced Scala&amp;rsquo;s &lt;code&gt;Future&lt;/code&gt; abstraction for dealing with asynchronous operations. When doing animations, I reached for &lt;code&gt;Futures&lt;/code&gt; because they are asynchronous. If your animations are in &lt;code&gt;Futures&lt;/code&gt;, and your HTTP requests are also in &lt;code&gt;Futures&lt;/code&gt;, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the &lt;a href="http://macroid.github.io/"&gt;Macroid&lt;/a&gt; Scala Android framework.&lt;/p&gt;
+&lt;p&gt;My previous article about &lt;a href="http://emptybrackets.com/2015/06/24/scala-takes-over-android.html"&gt;Scala on Android&lt;/a&gt; introduced Scala&amp;rsquo;s &lt;code&gt;Future&lt;/code&gt; abstraction for dealing with asynchronous operations. When doing animations, I reached for &lt;code&gt;Futures&lt;/code&gt; because they are asynchronous. If your animations are in &lt;code&gt;Futures&lt;/code&gt;, and your HTTP requests are also in &lt;code&gt;Futures&lt;/code&gt;, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the &lt;a href="http://macroid.github.io/"&gt;Macroid&lt;/a&gt; Scala Android framework.&lt;/p&gt;
 
 &lt;p&gt;We are going to make some animation helpers by &lt;strong&gt;wrapping &lt;code&gt;ValueAnimators&lt;/code&gt; inside &lt;code&gt;Futures&lt;/code&gt;&lt;/strong&gt;. To make things even more succint, we are going to patch our animation methods onto &lt;code&gt;Views&lt;/code&gt;.&lt;/p&gt;
 
