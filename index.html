@@ -142,7 +142,7 @@
 
 <h2>Animation with Futures</h2>
 
-<p>My previous article about <a href="http://rbs-macbook-pro.local:4567/2015/06/24/scala-takes-over-android.html">Scala on Android</a> introduced Scala&rsquo;s <code>Future</code> abstraction for dealing with asynchronous operations. When doing animations, I reached for <code>Futures</code> because they are asynchronous. If your animations are in <code>Futures</code>, and your HTTP requests are also in <code>Futures</code>, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the <a href="http://macroid.github.io/">Macroid</a> Scala Android framework.</p>
+<p>My previous article about <a href="/2015/06/24/scala-takes-over-android.html">Scala on Android</a> introduced Scala&rsquo;s <code>Future</code> abstraction for dealing with asynchronous operations. When doing animations, I reached for <code>Futures</code> because they are asynchronous. If your animations are in <code>Futures</code>, and your HTTP requests are also in <code>Futures</code>, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the <a href="http://macroid.github.io/">Macroid</a> Scala Android framework.</p>
 
 <p>We are going to make some animation helpers by <strong>wrapping <code>ValueAnimators</code> inside <code>Futures</code></strong>. To make things even more succint, we are going to patch our animation methods onto <code>Views</code>.</p>
 
