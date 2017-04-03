@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/2017/03/31/image-animation-with-procedural-textures.html"/>
     <id>http://blog.url.com/2017/03/31/image-animation-with-procedural-textures.html</id>
     <published>2017-03-30T18:13:00-07:00</published>
-    <updated>2017-04-03T00:08:00-07:00</updated>
+    <updated>2017-04-03T00:23:40-07:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -24,7 +24,7 @@
 
 &lt;p&gt;In 1630, Dutch painter named Matthias Storm created a beautiful &lt;a href="https://commons.wikimedia.org/wiki/Category:Matthias_Stom#/media/File:A_Young_Man_Reading_by_Candlelight_(Matthias_Stom)_-_Nationalmuseum_-_23887.tif"&gt;painting&lt;/a&gt; of a young man reading by candlelight. Little did he know that in 2017, his painting would be brought to life with the help of procedural textures and WebGL.&lt;/p&gt;
 
-&lt;p&gt;After watching this &lt;a href="http://www.gdcvault.com/play/1017660/Technical-Artist-Bootcamp-The-VFX"&gt;Blizzard tech talk&lt;/a&gt;, I started to see the potential for procedural noise to create cool effects. The technique is simple: multiply two textures together, and then multiply the product by &lt;code&gt;2.0&lt;/code&gt;. This technique is how Blizzard built all their spell effects in the game &lt;em&gt;Diablo II&lt;/em&gt;. Turns out that it&amp;rsquo;s a common game technique.&lt;/p&gt;
+&lt;p&gt;After watching this &lt;a href="http://www.gdcvault.com/play/1017660/Technical-Artist-Bootcamp-The-VFX"&gt;Blizzard tech talk&lt;/a&gt;, I started to see the potential for procedural noise to create cool effects. The technique is simple: multiply two textures together, and then multiply the product by &lt;code&gt;2.0&lt;/code&gt;. This technique is how Blizzard built all their spell effects in the game &lt;em&gt;Diablo III&lt;/em&gt;. Turns out that it&amp;rsquo;s a common game technique.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src="/images/diablo-vfx.jpg" /&gt;&lt;/p&gt;
 
