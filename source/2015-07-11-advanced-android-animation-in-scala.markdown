@@ -125,7 +125,7 @@ Let's make our own animation helper that is composable. The goal:
 
 ## Animation with Futures
 
-My previous article about [Scala on Android](http://rbs-macbook-pro.local:4567/2015/06/24/scala-takes-over-android.html) introduced Scala's `Future` abstraction for dealing with asynchronous operations. When doing animations, I reached for `Futures` because they are asynchronous. If your animations are in `Futures`, and your HTTP requests are also in `Futures`, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the [Macroid](http://macroid.github.io/) Scala Android framework.
+My previous article about [Scala on Android](http://emptybrackets.com/2015/06/24/scala-takes-over-android.html) introduced Scala's `Future` abstraction for dealing with asynchronous operations. When doing animations, I reached for `Futures` because they are asynchronous. If your animations are in `Futures`, and your HTTP requests are also in `Futures`, then you can compose animations and HTTP requests! I got this idea from trying to comprehend the [Macroid](http://macroid.github.io/) Scala Android framework.
 
 We are going to make some animation helpers by __wrapping `ValueAnimators` inside `Futures`__. To make things even more succint, we are going to patch our animation methods onto `Views`.
 
@@ -135,7 +135,7 @@ button.animateAlpha(0f, 500 millis) onSuccess(case _ => button.setEnabled(false)
 ```
 ## The Implementation
 
-We will gives `Views` our animation helper methods by using Scala's implicit wrapper class construct:
+We will give `Views` our animation helper methods by using Scala's implicit wrapper class construct:
 
 ```scala
 object ViewHelper {

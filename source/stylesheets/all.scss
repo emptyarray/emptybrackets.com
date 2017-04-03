@@ -12,10 +12,10 @@ $header-font: "Questrial", sans-serif;
 $body-font: "Open Sans", sans-serif;
 $base-margin: 1rem;
 $default-header-font-size: 1;
-$smaller-header-font-size: 0.8;
+$smaller-header-font-size: 0.75;
 
 $screen: "only screen";
-$medium: "#{$screen} and (min-width: 1024px) and (max-width: 1440px)";
+$medium: "#{$screen} and (min-width: 1024px)";
 $large-up: "#{$screen} and (min-width: 1441px) and (max-width: 999999px)";
 
 @font-face {
@@ -118,24 +118,31 @@ h1, h2, h3, h4 {
 
 h1 {
   margin: 0;
-  font-size: $smaller-header-font-size * 4rem;
-}
-
-h2 {
   font-size: $smaller-header-font-size * 3rem;
 }
 
+h2 {
+  font-size: $smaller-header-font-size * 2rem;
+}
+
 h3 {
-  font-size: $smaller-header-font-size * 2.25rem;
+  font-size: $smaller-header-font-size * 1.5rem;
 }
 
 h4 {
-  font-size: $smaller-header-font-size * 1.175rem;
+  font-size: $smaller-header-font-size * 1rem;
 }
 
+
+
 article > section {
-    padding: 1rem;
+  padding: 1rem 0;
+
+  > h1, h2, h3, h4, h5, h6, p, pre, ul {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
+}
 
 @media #{$medium} {
   .container {
@@ -150,9 +157,42 @@ article > section {
     width: 50%;
   }
 
-  article > section {
-    padding: 2rem;
+  article > header {
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    h1 {
+      text-align: center;
+    }
   }
+
+  article > section {
+    padding: 2rem 0;
+
+    > h1, h2, h3, h4, h5, h6, p, pre, ul {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+  }
+
+  h1 {
+    margin: 0;
+    font-size: $smaller-header-font-size * 4rem;
+  }
+
+  h2 {
+    font-size: $smaller-header-font-size * 3rem;
+  }
+
+  h3 {
+    font-size: $smaller-header-font-size * 2.25rem;
+  }
+
+  h4 {
+    font-size: $smaller-header-font-size * 1.175rem;
+  }
+
+
 }
 
 @media #{$large-up} {
@@ -174,6 +214,15 @@ article > section {
     font-size: $default-header-font-size * 1.175rem;
   }
 
+  article > header {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+    h1 {
+      text-align: center;
+    }
+  }
+
   .container {
     width: 50%;
     margin-left: 25%;
@@ -188,7 +237,7 @@ article > section {
   }
 
   article > section {
-    padding: 2rem;
+    padding: 2rem 0;
   }
 
 }
@@ -207,25 +256,42 @@ a {
   }
 }
 
+p a, ul a {
+  text-decoration: underline;
+}
+
 footer {
   height: 2rem;
 }
 
 article {
-  margin: 1rem 0;
+
+  margin-bottom: 2rem;
+
+  h1 {
+    text-align: left;
+    line-height: 1;
+  }
+
+  @media #{$medium} {
+    h1 {
+      text-align: center;
+      line-height: 1.1;
+    }
+  }
   
   header {
     background-color: white;
     padding: 2rem 1rem;
     margin-bottom: 2px;
 
-    h1 {
-      text-align: center;
-    }
+
   }
 
   section {
     background-color: white;
+
+    
   }
 
   footer {
@@ -350,4 +416,67 @@ $android-screen-margin: 20px;
 .article-date {
   color: $dark-grey;
   text-transform: uppercase;
+}
+
+img { 
+  max-width: 100%;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translate3d(0,0,0);
+  }
+  100% {
+    transform: translate3d(0,-100%,0);
+  }
+}
+
+.animated-image {
+  text-align: center;
+
+  .image-container {
+    display: inline-block;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .aspect {
+    width: 100%;
+    height: 0;
+    padding-bottom: 79.58%;
+    position: relative;
+  }
+
+  img {
+    display: block;
+    border: 0;
+    margin: 0;
+  }
+  
+  overflow: hidden;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+background-color: rgba(0,0,0,0.5);
+    #mix-blend-mode: screen;
+
+    #animation: slide-up 9s linear infinite;
+  }
+
+  .breakdown-step-name {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    color: white;
+    font-weight: 700;
+    background-color: rgba(0,0,0,0.6);
+  }
+
 }
