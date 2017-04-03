@@ -5,10 +5,58 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2015-07-10T17:00:00-07:00</updated>
+  <updated>2017-03-30T18:13:00-07:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Image Animation With Procedural Textures</title>
+    <link rel="alternate" href="http://blog.url.com/2017/03/31/image-animation-with-procedural-textures.html"/>
+    <id>http://blog.url.com/2017/03/31/image-animation-with-procedural-textures.html</id>
+    <published>2017-03-30T18:13:00-07:00</published>
+    <updated>2017-04-02T18:00:44-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;h2&gt;What we are building&lt;/h2&gt;
+
+&lt;div id="full-effect"&gt;&lt;/div&gt;
+
+&lt;p&gt;In 1630, Dutch painter named Matthias Storm created a beautiful &lt;a href="https://commons.wikimedia.org/wiki/Category:Matthias_Stom#/media/File:A_Young_Man_Reading_by_Candlelight_(Matthias_Stom)_-_Nationalmuseum_-_23887.tif"&gt;painting&lt;/a&gt; of a young man reading by candlelight. Little did he know that in 2017, his painting would be brought to life with the help of procedural textures and WebGL.&lt;/p&gt;
+
+&lt;p&gt;After watching this &lt;a href="http://www.gdcvault.com/play/1017660/Technical-Artist-Bootcamp-The-VFX"&gt;Blizzard tech talk&lt;/a&gt;, I started to see the potential for procedural noise to create cool effects. The technique is simple: multiply two textures together, and then multiply the product by &lt;code&gt;2.0&lt;/code&gt;. This technique is how Blizzard built all their spell effects in the game &lt;em&gt;Diablo II&lt;/em&gt;. Turns out that it&amp;rsquo;s a common game technique.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src="images/diablo-vfx.jpg" /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Applying game programming techniques to the web&lt;/h2&gt;
+
+&lt;p&gt;When I saw this tech talk, first I started wishing I was a game programmer. Then I started wondering, could I use this same technique on the web? Adding in some fiery, smokey, or magical effects could be a great way to spice up static images and make them into a compelling experience.&lt;/p&gt;
+
+&lt;h2&gt;Breakdown&lt;/h2&gt;
+
+&lt;p&gt;Here are some of the layers in the effect built up step-by-step:&lt;/p&gt;
+
+&lt;div id="effect-breakdown"&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I took 2 layers of turbulent &lt;a href="https://en.wikipedia.org/wiki/Perlin_noise"&gt;Perlin noise&lt;/a&gt;, multiplied them together and then by &lt;code&gt;2.0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;I scrolled both layers of noise upwards at different speeds&lt;/li&gt;
+&lt;li&gt;I multipled this noise by a mask that I made in Photoshop for the flame, to make sure the flame only showed where I wanted it&lt;/li&gt;
+&lt;li&gt;I used the mask noise to ramp between yellow and orange for the flame&lt;/li&gt;
+&lt;li&gt;I used the &lt;a href="https://en.wikipedia.org/wiki/Blend_modes#Screen"&gt;screen blend mode&lt;/a&gt; to put the flame over the image&lt;/li&gt;
+&lt;li&gt;I used 2 more layers of noise and another mask for the rest of the lighting in the scene. The noise was lower frequency and non-turbulent to be more subtle.&lt;/li&gt;
+&lt;li&gt;I pulsed the whole effect by mixing with the original image using offset sine waves&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Implementation&lt;/h2&gt;
+
+&lt;p&gt;&lt;span class="github"&gt;
+  &lt;span class="icon-github large-github-icon"&gt;&lt;/span&gt;&lt;a href="https://github.com/emptyarray/emptybrackets.com/blob/master/components/index.jsx"&gt;Code On Github&lt;/a&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;I used React along with &lt;a href="https://github.com/ProjectSeptemberInc/gl-react"&gt;gl-react&lt;/a&gt; for the WebGL implementation, and &lt;a href="https://github.com/stackgl/glslify"&gt;glslify&lt;/a&gt; to include the noise from &lt;a href="https://github.com/hughsk/glsl-noise"&gt;glsl-noise&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Advanced Android Animation in Scala</title>
     <link rel="alternate" href="http://blog.url.com/2015/07/11/advanced-android-animation-in-scala.html"/>
