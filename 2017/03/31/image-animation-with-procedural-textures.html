@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Empty Brackets – Image Animation With Procedural Textures</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/all.css" rel="stylesheet" type="text/css" /><link href="/stylesheets/syntax.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Questrial|Cousine:400,700|Open Sans:400,300,700' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    
+    <div id="main" role="main">
+      <header>
+        <a href="/"><h1>[]</h1></a>
+
+      </header>   
+      <div class="container">
+        <div class="content">
+            <article>
+    <header><h1>Image Animation With Procedural Textures</h1></header>
+    <section>
+      <h2>What we are building</h2>
+
+<div id="full-effect"></div>
+
+<p>In 1630, Dutch painter named Matthias Storm created a beautiful <a href="https://commons.wikimedia.org/wiki/Category:Matthias_Stom#/media/File:A_Young_Man_Reading_by_Candlelight_(Matthias_Stom)_-_Nationalmuseum_-_23887.tif">painting</a> of a young man reading by candlelight. Little did he know that in 2017, his painting would be brought to life with the help of procedural textures and WebGL.</p>
+
+<p>After watching this <a href="http://www.gdcvault.com/play/1017660/Technical-Artist-Bootcamp-The-VFX">Blizzard tech talk</a>, I started to see the potential for procedural noise to create cool effects. The technique is simple: multiply two textures together, and then multiply the product by <code>2.0</code>. This technique is how Blizzard built all their spell effects in the game <em>Diablo III</em>. Turns out that it&rsquo;s a common game technique.</p>
+
+<p><img src="/images/diablo-vfx.jpg" /></p>
+
+<h2>Applying game programming techniques to the web</h2>
+
+<p>When I saw this tech talk, first I started wishing I was a game programmer. Then I started wondering, could I use this same technique on the web? Adding in some fiery, smokey, or magical effects could be a great way to spice up static images and make them into a compelling experience.</p>
+
+<h2>Breakdown</h2>
+
+<p>Here are some of the layers in the effect built up step-by-step:</p>
+
+<div id="effect-breakdown"></div>
+
+<ul>
+<li>I took 2 layers of turbulent <a href="https://en.wikipedia.org/wiki/Perlin_noise">Perlin noise</a>, multiplied them together and then by <code>2.0</code></li>
+<li>I scrolled both layers of noise upwards at different speeds</li>
+<li>I multipled this noise by a mask that I made in Photoshop for the flame, to make sure the flame only showed where I wanted it</li>
+<li>I used the mask noise to ramp between yellow and orange for the flame</li>
+<li>I used the <a href="https://en.wikipedia.org/wiki/Blend_modes#Screen">screen blend mode</a> to put the flame over the image</li>
+<li>I used 2 more layers of noise and another mask for the rest of the lighting in the scene. The noise was lower frequency and non-turbulent to be more subtle.</li>
+<li>I pulsed the whole effect by mixing with the original image using offset sine waves</li>
+</ul>
+
+<h2>Implementation</h2>
+
+<p><span class="github">
+  <span class="icon-github large-github-icon"></span><a href="https://github.com/emptyarray/emptybrackets.com/blob/master/components/index.jsx">Code On Github</a>
+</span></p>
+
+<p>I used React along with <a href="https://github.com/ProjectSeptemberInc/gl-react">gl-react</a> for the WebGL implementation, and <a href="https://github.com/stackgl/glslify">glslify</a> to include the noise from <a href="https://github.com/hughsk/glsl-noise">glsl-noise</a>.</p>
+
+    </section>
+  </article>
+
+
+          <aside class="sidebar-container">
+            <div class="sidebar">
+              <h2>About</h2>
+
+              <p class="about-text">Full-stack web + mobile developer all rolled into one. Mountain View.</p>
+
+              <div class="find-me-links">
+
+                <a class="find-me-row" href="https://www.linkedin.com/pub/richard-barton/7/713/899">
+                  <span class="icon-linkedin"></span>
+                  <span>LinkedIn</span>
+                </a>
+                <a class="find-me-row" href="https://github.com/emptyarray">
+                  <span class="icon-github"></span>
+                  <span>Github</span>
+                </a>
+              </div>
+
+              <h3>Recent Articles</h3>
+              <ol>
+                  <li><a href="/2017/03/31/image-animation-with-procedural-textures.html">Image Animation With Procedural Textures</a> <span class="article-date">Mar 31 2017</span></li>
+                  <li><a href="/2015/07/11/advanced-android-animation-in-scala.html">Advanced Android Animation in Scala</a> <span class="article-date">Jul 11 2015</span></li>
+                  <li><a href="/2015/06/24/scala-takes-over-android.html">Scala Takes Over Android</a> <span class="article-date">Jun 24 2015</span></li>
+              </ol>
+            </div>
+        
+          </aside>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="/javascripts/bundle.js"></script>
+  </body>
+</html>
